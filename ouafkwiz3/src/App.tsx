@@ -14,10 +14,18 @@ interface User {
     created_at : string;
 }
 
+interface question {
+  
+    id: number;
+    created_at : string;
+    question_string : string;
+}
+
 function App() {
   let textcontainer_var : TextContainer = new TextContainer();
   const [token,setToken] = useState('');
   const [users, setUsers] = useState<User[]>([])
+  const [questions, setQuestions] = useState<question[]>([])
   const [user, setUser] = useState<User>({
     
     name: '',
@@ -46,6 +54,27 @@ function App() {
       
     }
   },[])
+
+
+
+
+
+
+  async function fetchquestions(): Promise<string> {
+    
+    const {data} = await supabase
+      .from('questions')
+      .select('*');
+    const data2 : any = data;
+    const data3 : string = JSON.stringify(data2);
+    setQuestions(data as question[] || []);
+    return data3;
+    
+  }
+
+
+
+
 
   const getusername = () => {
     let username :string = textcontainer_var.export_text(LangageInt,TextIndex,3);
@@ -116,7 +145,8 @@ function App() {
     fetchUsers()
   }, [])*/
 
-
+  
+  
   function handlechange(event: React.ChangeEvent<HTMLInputElement>) {
     setUser(prevFormData=>{return{...prevFormData,
       [event.target.name]: event.target.value
@@ -321,7 +351,7 @@ async function connectUser(local_email : string,local_password : string): Promis
         
         <Routes>
           <Route path="/" element={<Accueil get_language={get_language}/>} />
-          <Route path="/ouafkwiz/Game" element={<Game/>} />
+          <Route path="/ouafkwiz/Game" element={<Game fetchquestions={fetchquestions}/>} />
 
           <Route path="/ouafkwiz/Connexion" element={<Connexion
           get_language={get_language} connectUser={connectUser} createUser={createUser} handlechange={handlechange} get_token={get_token} logout={logout} resetpassword={resetpassword}
@@ -370,43 +400,3 @@ const Accueil = ({ get_language}: { get_language: () => void}) => {
 
 export default App
 
-
-/*
-
-  code vide2 et vide3
-
-
-
-  
-          <Link to="/Vide2" className ="navbar-button">
-            Vide 2
-          </Link>
-          <Link to="/Vide3" className ="navbar-button">
-            Vide 3
-          </Link>
-
-
-
-
-
-
-  CODE DU GET ET DU POST 
-
-
-
-
-
-    <form onSubmit={createUser}>
-      <input type="text" placeholder="name" name="name" onChange={handlechange}/>
-      <input type="email" placeholder="Email" />
-      <button type='submit'>Ajouter</button>
-    </form>
-    <div>
-      {users.map(user => (
-        <div key={user.id}>
-          <div>{user.name} {user.created_at} </div>
-        </div>
-      ))}
-    </div>
-    
-    */
