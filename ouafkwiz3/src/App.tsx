@@ -7,8 +7,6 @@ import Connexion from './Connexion.tsx';
 import { supabase } from './createClient.ts';
 import TextContainer from './TextContainer.tsx';
 import Resetpassword from './resetpassword.tsx';
-//import ContactUs from './ContactUs.tsx';
-import Comments from './Comments.tsx';
 
 interface User {
   name: string;
@@ -16,18 +14,10 @@ interface User {
     created_at : string;
 }
 
-interface Comment {
-  comment: string;
-    id: number;
-    created_at : string;
-    name : string;
-}
-
 function App() {
   let textcontainer_var : TextContainer = new TextContainer();
   const [token,setToken] = useState('');
   const [users, setUsers] = useState<User[]>([])
-  const [comments, setComments] = useState<Comment[]>([])
   const [user, setUser] = useState<User>({
     
     name: '',
@@ -110,9 +100,6 @@ function App() {
   }
 
 
-  const getcomments = () => {
-    return comments;
-  }
   
   const begin = () => {
     if (isstarting) {
@@ -129,10 +116,6 @@ function App() {
     fetchUsers()
   }, [])*/
 
-
-  useEffect(() => {
-    fetchcomments()
-  }, [])
 
   function handlechange(event: React.ChangeEvent<HTMLInputElement>) {
     setUser(prevFormData=>{return{...prevFormData,
@@ -151,21 +134,11 @@ function App() {
 
 
 
-  async function fetchcomments(): Promise<void> {
-    
-    const {data} = await supabase
-      .from('comments')
-      .select('*');
-
-    setComments(data as Comment[] || []);
-    
-  }
-
 
 async function resetpassword() {
   
   const { data, error } = await supabase.auth.resetPasswordForEmail('felicienboury@gmail.com', {
-    redirectTo: 'https://poker-vite-ts.vercel.app/poker_vite_ts/resetpassword'
+    redirectTo: 'https://ouafkwiz3.vercel.app/poker_vite_ts/resetpassword'
   });
   if (data) {
     alert("check your email");
@@ -297,35 +270,6 @@ async function connectUser(local_email : string,local_password : string): Promis
 
 
 
-
-  async function createcomment(local_comment : string): Promise<void> {
-
-    //event: React.FormEvent<HTMLFormElement>
-    
-    
-    try {
-    const { data, error } = await supabase
-      .from('comments')
-      .insert({ 
-        comment: local_comment 
-      ,name: JSON.parse(token).user.user_metadata.first_name
-      })/*user.name*/
-      .select();
-    
-    if (error) {
-      console.error(error);
-      return;
-    }
-    
-    console.log(data);
-    await fetchcomments();
-  } catch (error) {
-    console.error(error);
-  }
-  
-  }
-  createcomment
-
     const test = () => {
       //console.log("users doudou : ",users);
       return users
@@ -367,9 +311,6 @@ async function connectUser(local_email : string,local_password : string): Promis
           <Link to="/poker_vite_ts/Game" className ="navbar-button">
             {textcontainer_var.export_text(LangageInt,TextIndex,1)}
           </Link>
-          <Link to="/poker_vite_ts/ContactUs" className ="navbar-button">
-            {'Comments'}
-          </Link>
           <Link to="/poker_vite_ts/Connexion" className ="navbar-button">
             {getusername()}
           </Link>
@@ -381,9 +322,6 @@ async function connectUser(local_email : string,local_password : string): Promis
         <Routes>
           <Route path="/" element={<Accueil get_language={get_language}/>} />
           <Route path="/poker_vite_ts/Game" element={<Game/>} />
-
-          <Route path="/poker_vite_ts/ContactUs" element={<Comments createcomment={createcomment} getcomments={getcomments} get_token={get_token}
-          />} />
 
           <Route path="/poker_vite_ts/Connexion" element={<Connexion
           get_language={get_language} connectUser={connectUser} createUser={createUser} handlechange={handlechange} get_token={get_token} logout={logout} resetpassword={resetpassword}
