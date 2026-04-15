@@ -138,7 +138,7 @@ function App() {
 async function resetpassword() {
   
   const { data, error } = await supabase.auth.resetPasswordForEmail('felicienboury@gmail.com', {
-    redirectTo: 'https://ouafkwiz3.vercel.app/poker_vite_ts/resetpassword'
+    redirectTo: 'https://ouafkwiz3.vercel.app/ouafkwiz/resetpassword'
   });
   if (data) {
     alert("check your email");
@@ -308,10 +308,10 @@ async function connectUser(local_email : string,local_password : string): Promis
           <Link to="/" className ="navbar-button">
             {textcontainer_var.export_text(LangageInt,TextIndex,0)}
           </Link>
-          <Link to="/poker_vite_ts/Game" className ="navbar-button">
+          <Link to="/ouafkwiz/Game" className ="navbar-button">
             {textcontainer_var.export_text(LangageInt,TextIndex,1)}
           </Link>
-          <Link to="/poker_vite_ts/Connexion" className ="navbar-button">
+          <Link to="/ouafkwiz/Connexion" className ="navbar-button">
             {getusername()}
           </Link>
           
@@ -321,15 +321,15 @@ async function connectUser(local_email : string,local_password : string): Promis
         
         <Routes>
           <Route path="/" element={<Accueil get_language={get_language}/>} />
-          <Route path="/poker_vite_ts/Game" element={<Game/>} />
+          <Route path="/ouafkwiz/Game" element={<Game/>} />
 
-          <Route path="/poker_vite_ts/Connexion" element={<Connexion
+          <Route path="/ouafkwiz/Connexion" element={<Connexion
           get_language={get_language} connectUser={connectUser} createUser={createUser} handlechange={handlechange} get_token={get_token} logout={logout} resetpassword={resetpassword}
           />} />
           <Route path="/Vide3" element={<Vide3 
           onClickFunc={testclick}
           onClickFunc2={testclick2}/>} />
-          <Route path="/poker_vite_ts/resetpassword" element={<Resetpassword/>} />
+          <Route path="/ouafkwiz/resetpassword" element={<Resetpassword/>} />
           
         </Routes>
 
@@ -356,7 +356,7 @@ const Accueil = ({ get_language}: { get_language: () => void}) => {
   <div>
   
   <div className='chip-crypt'></div>
-  <div><button className='play-button' onClick={() => navigate('/poker_vite_ts/Game')}>{textcontainer_var.export_text(get_language_int(),0,2)}</button></div>
+  <div><button className='play-button' onClick={() => navigate('/ouafkwiz/Game')}>{textcontainer_var.export_text(get_language_int(),0,2)}</button></div>
   
   
     
