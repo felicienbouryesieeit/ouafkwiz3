@@ -1,0 +1,48 @@
+.description {
+  white-space: pre-line;
+}
+
+.top-stats{
+  margin-bottom: 30px;
+}
+.action-button{
+  
+  /*background-image: var(--card);*/
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 36px 24px ;
+  border-width: 10px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0);
+  image-rendering: pixelated;
+  transition: all 0.1s ease;
+  border: none;
+  
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+}
+.action-button:active {
+  outline: none;
+}
+.action-button:hover {
+  
+  
+  
+  padding: 39.6px 26.4px ;
+  /*
+  transform: translateY(-5px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);*/
+  
+}
+
+
+
+.game-container{
+  position: absolute;  /* Centre horizontalement */
+  transform: translate(-50%, -20%);  /* Ajuste le centre exact */
+  z-index: 1000;
+}

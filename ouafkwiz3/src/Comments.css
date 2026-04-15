@@ -1,0 +1,17 @@
+.comment{
+    border: 2px solid rgb(255, 255, 255);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    width: 400px;
+
+
+}
+
+.comment-container{
+  position: absolute;  /* Centre horizontalement */
+  transform: translate(-50%, -20%);  /* Ajuste le centre exact */
+  z-index: 1000;
+}
