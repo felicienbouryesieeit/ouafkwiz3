@@ -170,11 +170,11 @@ const get_score = () => {
 
 const onanswerclick = (answerstring : string,btn:String) => {
   btn
-  let validation : string = 'false'
+  //let validation : string = 'false'
   console.log("current answer : ",answerstring, "expected answer : ",get_good_anser_string(question_data))
   let local_good_answer_number : number = good_answers_number
   if (answerstring==get_good_anser_string(question_data)) {
-    validation = 'true'
+    //validation = 'true'
     local_good_answer_number+=1;
   }
   setgood_answers_number(local_good_answer_number);
