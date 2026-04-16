@@ -241,7 +241,7 @@ const next_question = () => {
 
   const go_back = () => {
     //setshow_screen_mode(0);
-    window.location.href = window.location.pathname
+    window.location.href = '/ouafkwiz/Game'
   }
 
   const getquestion = () => {
