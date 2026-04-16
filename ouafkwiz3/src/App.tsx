@@ -7,6 +7,7 @@ import Connexion from './Connexion.tsx';
 import { supabase } from './createClient.ts';
 import TextContainer from './TextContainer.tsx';
 import Resetpassword from './resetpassword.tsx';
+import About from './About.tsx';
 
 interface User {
   name: string;
@@ -334,11 +335,12 @@ async function connectUser(local_email : string,local_password : string): Promis
           <Link to="/" className ="navbar-button">
             {textcontainer_var.export_text(LangageInt,TextIndex,0)}
           </Link>
-          <Link to="/ouafkwiz/Game" className ="navbar-button">
-            {textcontainer_var.export_text(LangageInt,TextIndex,1)}
-          </Link>
+          
           <Link to="/ouafkwiz/Connexion" className ="navbar-button">
             {getusername()}
+          </Link>
+          <Link to="/ouafkwiz/About" className ="navbar-button">
+            À propos
           </Link>
           </nav>
         
@@ -354,6 +356,7 @@ async function connectUser(local_email : string,local_password : string): Promis
           onClickFunc={testclick}
           onClickFunc2={testclick2}/>} />
           <Route path="/ouafkwiz/resetpassword" element={<Resetpassword/>} />
+          <Route path="/ouafkwiz/about" element = {<About></About>}/>
           
         </Routes>
 
@@ -368,6 +371,9 @@ async function connectUser(local_email : string,local_password : string): Promis
 
 
 /*
+          <Link to="/ouafkwiz/Game" className ="navbar-button">
+            {textcontainer_var.export_text(LangageInt,TextIndex,1)}
+          </Link>
           
           <Link to="/ouafkwiz/resetpassword" className ="navbar-button">
             {"resetpassword"}

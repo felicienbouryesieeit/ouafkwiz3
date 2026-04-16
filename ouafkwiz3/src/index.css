@@ -150,6 +150,10 @@ button.loading::after {
     transform: translateY(-2px) rotate(-1.6deg);
   }
 }
+
+.about{
+  
+}
 /*
 button:hover {
   border-color: #646cff00;

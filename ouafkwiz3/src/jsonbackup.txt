@@ -1,0 +1,9 @@
+{
+  "question": "combien fait 1+2 ?",
+  "bonne_reponse": 3,
+  "mauvaises_reponses": [
+    2,
+    5,
+    9
+  ]
+}

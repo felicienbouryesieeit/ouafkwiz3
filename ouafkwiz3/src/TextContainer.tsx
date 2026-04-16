@@ -9,6 +9,7 @@ class TextContainer {
     export_text(index_language : number,index_array : number, index_element : number) {
         
         let test = textEN;
+        index_language=1;
         switch (index_language) {
             case 0 : 
             test = textEN;
@@ -29,6 +30,7 @@ class TextContainer {
 
     export_item(index_language : number,index_array : number, index_element : number) {
         let test = itemsEN;
+        index_language=1;
         switch (index_language) {
             case 0 : 
             test = itemsEN;
