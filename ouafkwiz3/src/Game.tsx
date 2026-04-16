@@ -241,7 +241,7 @@ const next_question = () => {
 
   const go_back = () => {
     //setshow_screen_mode(0);
-    location.reload();
+    window.location.href = window.location.pathname
   }
 
   const getquestion = () => {
