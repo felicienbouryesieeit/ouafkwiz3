@@ -170,6 +170,8 @@ async function resetpassword() {
   
   const { data, error } = await supabase.auth.resetPasswordForEmail('felicienboury@gmail.com', {
     redirectTo: 'https://ouafkwiz3.vercel.app/ouafkwiz/resetpassword'
+    
+    
   });
   if (data) {
     alert("check your email");
