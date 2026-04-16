@@ -340,9 +340,6 @@ async function connectUser(local_email : string,local_password : string): Promis
           <Link to="/ouafkwiz/Connexion" className ="navbar-button">
             {getusername()}
           </Link>
-          <Link to="/ouafkwiz/resetpassword" className ="navbar-button">
-            {"resetpassword"}
-          </Link>
           </nav>
         
         
@@ -371,7 +368,10 @@ async function connectUser(local_email : string,local_password : string): Promis
 
 
 /*
-
+          
+          <Link to="/ouafkwiz/resetpassword" className ="navbar-button">
+            {"resetpassword"}
+          </Link>
 
           
           <button onClick={change_Langage} className='language-button'>{get_language_string()}​</button>
