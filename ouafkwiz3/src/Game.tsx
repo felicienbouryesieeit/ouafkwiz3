@@ -306,7 +306,7 @@ const next_question = () => {
           type="number"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Écrivez quelque chose..."
+          placeholder="seed"
         />
         </div>
         <div>

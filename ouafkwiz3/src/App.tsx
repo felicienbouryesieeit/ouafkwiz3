@@ -23,7 +23,7 @@ interface question {
 
 function App() {
   let textcontainer_var : TextContainer = new TextContainer();
-  const [token,setToken] = useState('');
+  const [session, setSession] = useState<any>(null);
   const [users, setUsers] = useState<User[]>([])
   const [questions, setQuestions] = useState<question[]>([])
   const [user, setUser] = useState<User>({
@@ -43,18 +43,22 @@ function App() {
 
   setTextIndex
 
-  useEffect(()=>{
-    const token2 = sessionStorage.getItem('token')
-    if (token2) {
-      //let data2 = 
-      setToken(token2);
-      console.log("bandito");
-      console.log(JSON.parse(token2));
-      //let data : any = JSON.parse(token2)
+  useEffect(() => {
+    const restoreSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      setSession(data.session);
+    };
 
-      
-    }
-  },[])
+    restoreSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
 
 
 
@@ -87,22 +91,16 @@ function App() {
   }
 
   const getusername2 = () => {
-    let username :string = JSON.parse(token).user.user_metadata.first_name;
-    return username;
+    return session?.user?.user_metadata?.first_name ?? '';
   }
 
   const get_token = () => {
-    
-    return token;
+    return session?.access_token ?? '';
   }
 
 
   const isconnected = () => {
-    let isconnectedvar : boolean = false;
-    if (token) {
-      isconnectedvar = true;
-    }
-    return isconnectedvar;
+    return Boolean(session);
   }
 
   isconnected
@@ -122,6 +120,7 @@ function App() {
     }
     setLangageInt2(local_int);
   }
+  change_Langage
 
   const setLangageInt2 = (local_int:number) => {
     
@@ -174,7 +173,7 @@ async function resetpassword() {
     
   });
   if (data) {
-    alert("check your email");
+    alert("Vérifiez votre boite mail.");
   }
 
   if (error) {
@@ -185,17 +184,14 @@ async function resetpassword() {
 
 async function logout() {
   try {
-  const { error } = await supabase.auth.signOut()
-  sessionStorage.removeItem('token');
-  location.reload();
-  if (error) {
-      alert(error)
+    const { error } = await supabase.auth.signOut();
+    setSession(null);
+    if (error) {
+      alert(error.message ?? error);
       console.error(error);
       return;
     }
-
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
   }
 }
@@ -226,7 +222,7 @@ async function createUser(local_name : string,local_email : string,local_passwor
       return;
     }
     
-    alert("success")
+    alert("Vérifiez votre boite mail.")
     //console.log(data);
     //await fetchUsers();
   } catch (error) {
@@ -261,17 +257,13 @@ async function connectUser(local_email : string,local_password : string): Promis
 })
 
     if (error) {
-      alert(error)
+      alert(error.message ?? error);
       console.error(error);
       return;
     }
     
-    alert("success")
-    console.log(data);
-    sessionStorage.setItem('token',JSON.stringify(data));
-    location.reload();
-
-    //await fetchUsers();
+    alert("success");
+    setSession(data.session);
   } catch (error) {
     console.error(error);
   }
@@ -332,6 +324,7 @@ async function connectUser(local_email : string,local_password : string): Promis
     }
     return language_emoji;
   }
+  get_language_string
   // className='language-button'
   return (
     <BrowserRouter>
@@ -347,12 +340,7 @@ async function connectUser(local_email : string,local_password : string): Promis
           <Link to="/ouafkwiz/Connexion" className ="navbar-button">
             {getusername()}
           </Link>
-          <Link to="/ouafkwiz/resetpassword" className ="navbar-button">
-            {"resetpassword"}
-          </Link>
-          
-          <button onClick={change_Langage} className='language-button'>{get_language_string()}​</button>
-        </nav>
+          </nav>
         
         
         <Routes>
@@ -378,6 +366,16 @@ async function connectUser(local_email : string,local_password : string): Promis
   );
 }
 
+
+/*
+
+<Link to="/ouafkwiz/resetpassword" className ="navbar-button">
+            {"resetpassword"}
+          </Link>
+          
+          <button onClick={change_Langage} className='language-button'>{get_language_string()}​</button>
+        
+*/
 // Composant Accueil (page par défaut)
 const Accueil = ({ get_language}: { get_language: () => void}) => {
   
