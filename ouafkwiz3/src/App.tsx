@@ -36,7 +36,7 @@ function App() {
   setUser
   setUsers
   questions
-  const [LangageInt,setLangageInt] = useState(0);
+  const [LangageInt,setLangageInt] = useState(1);
   const [TextIndex,setTextIndex] = useState(0);
   const [isstarting,setIsstarting] = useState(true);
   
@@ -340,6 +340,9 @@ async function connectUser(local_email : string,local_password : string): Promis
           <Link to="/ouafkwiz/Connexion" className ="navbar-button">
             {getusername()}
           </Link>
+          <Link to="/ouafkwiz/resetpassword" className ="navbar-button">
+            {"resetpassword"}
+          </Link>
           </nav>
         
         
@@ -369,9 +372,7 @@ async function connectUser(local_email : string,local_password : string): Promis
 
 /*
 
-<Link to="/ouafkwiz/resetpassword" className ="navbar-button">
-            {"resetpassword"}
-          </Link>
+
           
           <button onClick={change_Langage} className='language-button'>{get_language_string()}​</button>
         
