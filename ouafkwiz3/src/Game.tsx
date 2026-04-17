@@ -22,8 +22,10 @@ const Game = ({ fetchquestions }: { fetchquestions: () => Promise<string> }) => 
   useEffect(() => {
     const loadQuestions = async () => {
       try {
+        if (isbegin==true) {
         const data = await fetchquestions();
         begin_data(data);
+      }
       } catch (error) {
         console.error("Erreur lors du chargement:", error);
       }
