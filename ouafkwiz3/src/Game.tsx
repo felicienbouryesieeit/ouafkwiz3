@@ -190,7 +190,7 @@ const next_question = () => {
   const changequestiontest = () => {
     //console.log('index',question_index);
     //max_question
-    if (question_index<2) {
+    if (question_index<10) {
     console.log("max question : ",max_question);
     setQuestion_index(question_index+1);
     setshow_screen_mode(1);
