@@ -1,0 +1,162 @@
+DOCUMENTATION DU PROJET
+=======================
+
+1. VISION ET OBJECTIF
+---------------------
+Ce projet est une application web interactive construite avec React, TypeScript et Vite. Il vise à proposer une expérience de quiz / jeu en ligne avec authentification, gestion de sessions et formulaire de contact.
+
+L'objectif principal est de permettre à un nouveau développeur ou à un jury de comprendre rapidement la structure, les composants clés, les exigences et les modes d'exécution (local ou conteneurisé). Cette documentation centralise également les éléments techniques, les tests et les limites connues.
+
+2. PORTÉE DU PROJET
+--------------------
+- Single Page Application (SPA) React
+- Interface utilisateur en TypeScript
+- Authentification utilisateur via Supabase
+- Récupération de données (questions) depuis Supabase
+- Formulaire de contact utilisant EmailJS
+- Navigation avec React Router
+- Compilation et gestion des tests via Vite/Vitest
+
+3. ARCHITECTURE
+----------------
+- Dossier principal de l'application : `ouafkwiz3/ouafkwiz3`
+- Frontend : React + Vite
+- State management : `useState`, `useEffect`
+- Routing : `react-router-dom`
+- Base de données / authentification : Supabase
+- Envoi d'e-mails : EmailJS
+
+Fichiers importants :
+- `src/App.tsx` : point d'entrée principal, navigation, authentification et logique métier
+- `src/createClient.ts` : configuration Supabase
+- `src/Connexion.tsx` : écran de connexion / inscription utilisateur
+- `src/resetpassword.tsx` : gestion du reset de mot de passe
+- `src/ContactUs.tsx` : formulaire de contact avec EmailJS
+- `src/Game.tsx`, `src/TextContainer.tsx`, `src/Vide3.tsx` : composants métier
+- `vite.config.ts` : configuration Vite et Vitest
+
+4. PRÉREQUIS
+--------------
+- Système d'exploitation : Windows, macOS ou Linux
+- Node.js (version 18 ou supérieure recommandée)
+- npm (ou pnpm / yarn) disponible
+- Accès internet pour télécharger les dépendances et accéder aux services Supabase / EmailJS
+
+Optionnel pour conteneurs :
+- Docker installé et actif
+
+5. VARIABLES DE CONFIGURATION
+-----------------------------
+Actuellement, la configuration Supabase est codée en dur dans `src/createClient.ts` :
+- URL Supabase : `https://xpdcknruavmjwhlmlnka.supabase.co`
+- Clé publieuse Supabase : `sb_publishable_6I5b0X4ke4a0CKiCMMfQoA_RtekliYd`
+
+Le formulaire de contact utilise également des identifiants EmailJS codés en dur dans `src/ContactUs.tsx` :
+- `service_fnvdvmy`
+- `template_wz0anjj`
+- clé publique : `Fqx8TAT0xBmkXQkNl`
+
+Recommandation : pour un usage en production, externaliser ces valeurs dans un fichier `.env` ou un gestionnaire de secrets et ne jamais stocker de clés privées dans le code source.
+
+6. INSTALLATION LOCALE
+-----------------------
+1. Ouvrir un terminal dans le répertoire du projet :
+   `c:\Users\felic\Desktop\ouafkwiz_github\ouafkwiz3\ouafkwiz3`
+2. Installer les dépendances :
+   `npm install`
+3. Lancer le serveur de développement :
+   `npm run dev`
+4. Ouvrir le navigateur à l'URL affichée par Vite (typiquement `http://localhost:5173`).
+
+7. COMMANDES UTILES
+--------------------
+Depuis `ouafkwiz3/ouafkwiz3` :
+- `npm run dev` : lance l'application en mode développement
+- `npm run build` : construit l'application pour la production
+- `npm run preview` : prévisualise le build de production en local
+- `npm run lint` : analyse le code avec ESLint
+- `npm test` : lance les tests via Vitest
+- `npm run test:run` : exécute les tests une seule fois
+- `npm run test:watch` : exécute les tests en mode watch
+- `npm run test:coverage` : génère le rapport de couverture
+- `npm run test:ui` : ouvre l'interface utilisateur de Vitest
+
+8. DÉPLOIEMENT CONTENEURISÉ
+----------------------------
+Il n'existe pas de configuration Docker prédéfinie dans le projet. Pour déployer en conteneur, utiliser un Dockerfile basé sur Node et Vite.
+
+Exemple de procédure :
+1. Créer un `Dockerfile` dans `ouafkwiz3/ouafkwiz3` ou dans le dossier racine du service.
+2. Exemple de scènes :
+   - Phase de build : `npm install && npm run build`
+   - Phase de runtime : `npm run preview -- --host 0.0.0.0 --port 4173`
+3. Construire l'image Docker :
+   `docker build -t ouafkwiz3-app .`
+4. Lancer le conteneur :
+   `docker run -p 4173:4173 ouafkwiz3-app`
+5. Accéder à l'application depuis `http://localhost:4173`.
+
+Si vous souhaitez exécuter le projet comme application statique, vous pouvez aussi servir le dossier `dist` généré par `npm run build` avec un serveur HTTP statique.
+
+9. DÉMARRAGE ET ARRÊT
+----------------------
+Local :
+- Démarrage : `npm run dev`
+- Arrêt : `Ctrl+C` dans le terminal
+
+Conteneur :
+- Démarrage : `docker run ...`
+- Arrêt : `docker stop <container_id>`
+
+10. CONFIGURATION
+------------------
+- `src/createClient.ts` : modifier l'URL et la clé Supabase si vous utilisez un autre projet Supabase.
+- `src/ContactUs.tsx` : adapter le service EmailJS, le template et la clé publique pour votre propre compte.
+- `vite.config.ts` : vérifier les paramètres Vite et de test si nécessaire.
+
+11. JOURNALISATION
+-------------------
+- Le projet n'inclut pas de mécanisme de logs centralisé.
+- Les erreurs et messages runtime sont visibles dans la console du navigateur.
+- En développement, Vite affiche les erreurs de compilation et les logs dans le terminal.
+
+12. TESTS
+--------
+- Tests unitaires/logiciels : `npm test`
+- Exécution simple : `npm run test:run`
+- Surveillance des tests en continu : `npm run test:watch`
+- Rapport de couverture : `npm run test:coverage`
+- Interface graphique de test : `npm run test:ui`
+
+13. SÉCURITÉ
+--------------
+Points importants :
+- La clé Supabase est publique et ne doit pas être utilisée pour des opérations sensibles côté serveur.
+- Les données privées doivent être sécurisées côté backend ou via des règles RLS (Row Level Security) sur Supabase.
+- Les identifiants EmailJS et les informations de service doivent être externalisés pour un déploiement sécurisé.
+- La navigation et l'authentification sont gérées côté frontend, ce qui impose de bien configurer les autorisations Supabase.
+
+14. LIMITATIONS CONNUES
+-----------------------
+- Pas de backend dédié dans le dépôt : l'application dépend entièrement de Supabase et EmailJS.
+- Configuration codée en dur pour Supabase et EmailJS.
+- Pas de container Docker fourni par défaut.
+- Logging limité à la console du navigateur et du terminal.
+- Le routage, les sessions et la logique métier sont gérés côté client, ce qui peut poser des contraintes de sécurité et de montée en charge.
+
+15. LIVRAISON ET ÉVOLUTION
+---------------------------
+- Ce document permet de lancer le projet localement et de comprendre le périmètre technique.
+- Pour aller en production, prévoir :
+  - externalisation des secrets
+  - configuration de Supabase sécurisée
+  - ajout d'un backend ou d'une API si nécessaire
+  - création d'un Dockerfile et d'un pipeline de déploiement
+
+16. NOTES PRATIQUES
+-------------------
+- Travailler depuis le dossier `ouafkwiz3/ouafkwiz3` pour les commandes npm.
+- Vérifier que Node et npm sont à jour avant d'installer.
+- Ouvrir `http://localhost:5173` après `npm run dev`.
+
+FIN DE LA DOCUMENTATION.
