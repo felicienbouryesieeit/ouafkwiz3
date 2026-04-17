@@ -17,12 +17,6 @@ const Game = ({ fetchquestions }: { fetchquestions: () => Promise<string> }) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (inputValue.toString().trim()) {
-      alert(`Vous avez écrit : ${inputValue}`);
-    } else {
-      alert("Veuillez écrire quelque chose");
-    }
   };
 
   useEffect(() => {
@@ -40,9 +34,15 @@ const Game = ({ fetchquestions }: { fetchquestions: () => Promise<string> }) => 
 
   const begin_data = (data: string) => {
     if (isbegin == true) {
-      console.log("url",Number(seed_url).toString());
-      //(Math.floor(Math.random() * 100000) + 1)
-      setInputValue(Number(seed_url).toString());
+      let localinputvalue : number = Number(seed_url);
+
+      if (localinputvalue==0) {
+        localinputvalue = (Math.floor(Math.random() * 100000) + 1);
+      }
+      
+      
+      
+      setInputValue(localinputvalue.toString());
       setisbegin(false);
       setQuestion_data(data);
       setMax_question(JSON.parse(data).length);
@@ -166,7 +166,7 @@ const Game = ({ fetchquestions }: { fetchquestions: () => Promise<string> }) => 
   };
 
   const go_back = () => {
-    window.location.href = "/ouafkwiz/Game";
+    window.location.href = "/ouafkwiz/Game/0";
   };
 
   const getquestion = () => {
@@ -182,6 +182,18 @@ const Game = ({ fetchquestions }: { fetchquestions: () => Promise<string> }) => 
     answer_string = "La bonne réponse était : " + get_good_anser_string(question_data);
     return answer_string;
   };
+
+  const copy_url = async () => {
+    let myUrl = window.location.href;
+    let url = new URL(myUrl);
+    if (inputValue) {
+    let pathParts = url.pathname.split('/');
+    pathParts[pathParts.length - 1] = inputValue;
+    url.pathname = pathParts.join('/');
+    let modifiedUrl = url.toString();
+    await navigator.clipboard.writeText(modifiedUrl);
+    }
+  }
 
   return (
     <>
@@ -222,6 +234,7 @@ const Game = ({ fetchquestions }: { fetchquestions: () => Promise<string> }) => 
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="seed"
                 />
+                <button onClick={() => copy_url()}>copier l'url</button>
               </div>
               <div>
                 <button type="submit" onClick={() => start_game()}>

@@ -248,7 +248,7 @@ const Accueil = ({ get_language }: { get_language: () => void }) => {
     <div>
       <div className="chip-crypt"></div>
       <div>
-        <button className="play-button" onClick={() => navigate("/ouafkwiz/Game/11")}>
+        <button className="play-button" onClick={() => navigate("/ouafkwiz/Game/0")}>
           {textcontainer_var.export_text(get_language_int(), 0, 2)}
         </button>
       </div>
