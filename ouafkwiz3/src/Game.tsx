@@ -194,6 +194,7 @@ const Game = ({ fetchquestions }: { fetchquestions: () => Promise<string> }) => 
     url.pathname = pathParts.join('/');
     let modifiedUrl = url.toString();
     await navigator.clipboard.writeText(modifiedUrl);
+    alert('url copiée')
     }
   }
 
