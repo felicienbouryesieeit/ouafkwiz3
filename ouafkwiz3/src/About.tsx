@@ -9,11 +9,11 @@ const About = () => {
           </div>
 
         <h1 className="headline">
-           Les seeds ?
+           Jouer à plusieurs
         </h1>
 
         <div className="about">
-            Lorsque vous voulez lancer une partie de Ouafkwiz, il y a un nombre aléatoire qui apparait au dessus du bouton "jouer". Il s'agit de la seed du quiz. Elle détermine l'aléatoire du choix des questions que vous vous appretez à avoir. Vous pouvez copier cette seed et la partager à vos amis afin de vous affronter sur le même quiz, puis de partager vos scores !
+            Vous pouvez appuyer sur le bouton "copier l'url" pour partager l'url à vos amis, afin de tous vous affronter sur le même quiz! Cela est possible grâce au système de "seeds" disponible dans ouafkwiz : Il s'agit d'un chiffre qui gére l'aléatoire des questions. 2 joueurs avec la même seed auront exactement les mêmes questions !
           </div>
 
 
