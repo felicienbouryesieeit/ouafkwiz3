@@ -8,18 +8,17 @@ const Resetpassword = () => {
    supabase.auth.onAuthStateChange(async (event, session) => {
     session
      if (event == "PASSWORD_RECOVERY") {
-       const newPassword : any = prompt("What would you like your new password to be?");
+       const newPassword : any = prompt("Choisissez un nouveau mot de passe :");
        const { data, error } = await supabase.auth
          .updateUser({ password: newPassword })
-       if (data) alert("Password updated successfully!")
-       if (error) alert("There was an error updating your password.")
+       if (data) alert("Password mis à jour!")
+       if (error) alert("Il y à eu une erreur en mettant votre mot de passe à jour.")
      }
    })
  }, [])
 
   return (
     <div>
-      reset password
     </div>
   );
 };

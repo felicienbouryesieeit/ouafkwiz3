@@ -168,7 +168,8 @@ function App() {
         return;
       }
 
-      alert("success");
+      
+      alert("Connexion réussie !");
       setSession(data.session);
     } catch (error) {
       console.error(error);
